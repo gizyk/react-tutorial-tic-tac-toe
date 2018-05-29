@@ -10,6 +10,14 @@ function Square(props) {
   );
 }
 
+function ToggleSortButton(props) {
+  return (
+    <button onClick={props.onClick}>
+      Sort: {props.sortAscending ? "Ascending" : "Descending"}
+    </button>
+  )
+}
+
 class Board extends React.Component {
   renderSquare(i) {
     return (
@@ -49,7 +57,8 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      sortAscending: true,
     };
   }
 
@@ -71,6 +80,12 @@ class Game extends React.Component {
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
     });
+  }
+
+  handleToggleSortButtonClick() {
+    this.setState({
+      sortAscending: !this.state.sortAscending,
+    })
   }
 
   jumpTo(step) {
@@ -114,7 +129,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.sortAscending ? moves : moves.reverse()}</ol>
+          <ToggleSortButton sortAscending={this.state.sortAscending} onClick={()=> this.handleToggleSortButtonClick()}/>
         </div>
       </div>
     );
