@@ -93,9 +93,10 @@ class Game extends React.Component {
       const desc = move ?
         'Go to move #' + move + " " + createLocationFormat(step.clickedIndex) :
         'Go to game start';
+      const isSelected = (step === current);
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>{isSelected ? React.createElement("strong", {}, desc) : desc}</button>
         </li>
       );
     });
