@@ -42,7 +42,6 @@ class Board extends React.Component {
       }
       rows.push(<div className="board-row">{squares}</div>);
     }
-    console.log(JSON.stringify(this.props.highlight));
     return (
       <div>
         {rows}
@@ -135,7 +134,12 @@ class Game extends React.Component {
     if (winner) {
       status = "Winner: " + current.squares[winner[0]];
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      
+      if(current.squares.includes(null)) {
+        status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      } else {
+        status = "It's a draw !";
+      }
     }
 
     return (
